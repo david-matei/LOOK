@@ -11,7 +11,6 @@ export const bubbleSort = async (
 
     for (let i = 0; i < linesCopy.length; i++) {
       completed = true;
-
       for (let j = 0; j < linesCopy.length - i - 1; j++) {
         if (linesCopy[j] > linesCopy[j + 1]) {
           temp = linesCopy[j];
