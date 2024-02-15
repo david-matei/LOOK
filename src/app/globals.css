@@ -15,6 +15,12 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -25,7 +31,6 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
