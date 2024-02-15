@@ -1,11 +1,13 @@
 "use client";
 import SortingLine from "@/components/SortingLine";
+import classNames from "classnames";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [numberOfSortingLines, setNumberOfSortingLines] = useState<number[]>(
     Array.from({ length: 240 }, (_, index) => index + 1)
   );
+  const [algorithmRunning, setAlgorithmRunning] = useState(false);
 
   const shuffleLines = () => {
     const array = Array.from({ length: 240 }, (_, index) => index + 1);
@@ -17,25 +19,43 @@ export default function Home() {
   };
 
   const bubbleSort = async () => {
-    let linesCopy = [...numberOfSortingLines];
-    let temp;
-    for (let i = 0; i < linesCopy.length; i++) {
-      for (let j = 0; j < linesCopy.length - i - 1; j++) {
-        if (linesCopy[j] > linesCopy[j + 1]) {
-          temp = linesCopy[j];
-          linesCopy[j] = linesCopy[j + 1];
-          linesCopy[j + 1] = temp;
-          setNumberOfSortingLines([...linesCopy]);
-          await new Promise((resolve) => setTimeout(resolve, 1));
+    try {
+      setAlgorithmRunning(true);
+      let linesCopy = [...numberOfSortingLines];
+      let temp: number;
+      let completed: boolean;
+      for (let i = 0; i < linesCopy.length; i++) {
+        completed = true;
+        for (let j = 0; j < linesCopy.length - i - 1; j++) {
+          if (linesCopy[j] > linesCopy[j + 1]) {
+            completed = false;
+            temp = linesCopy[j];
+            linesCopy[j] = linesCopy[j + 1];
+            linesCopy[j + 1] = temp;
+            setNumberOfSortingLines([...linesCopy]);
+            await new Promise((resolve) => setTimeout(resolve, 1));
+          }
         }
+        if (completed) break;
       }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setAlgorithmRunning(false);
     }
   };
 
   return (
     <>
       <nav className="p-2 flex justify-around cursor-pointer">
-        <div className="font-semibold text-sm p-2" onClick={shuffleLines}>
+        <div
+          className={classNames(
+            algorithmRunning
+              ? "font-semibold text-sm p-2 cursor-not-allowed"
+              : "font-semibold text-sm p-2"
+          )}
+          onClick={algorithmRunning ? undefined : shuffleLines}
+        >
           Randomize Lines
         </div>
         <button onClick={() => bubbleSort()}>Bubble Sort</button>
