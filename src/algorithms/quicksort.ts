@@ -1,6 +1,6 @@
 // at the same time that I did this project I also learned the algorithms 😂
 
-export const quicksort = async (
+export const quickSort = async (
   array: number[],
   setArray: React.Dispatch<React.SetStateAction<number[]>>
 ): Promise<void> => {

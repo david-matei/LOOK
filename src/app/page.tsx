@@ -4,7 +4,8 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { bubbleSort } from "../algorithms/bubblesort";
 import { shuffleLines } from "@/functions/shuffleLines";
-import { quicksort } from "@/algorithms/quicksort";
+import { quickSort } from "@/algorithms/quicksort";
+import { mergeSort } from "@/algorithms/mergesort"
 import { arraysAreEqual } from "@/functions/arraysAreEqual";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
     Array.from({ length: 400 }, (_, index) => index + 1)
   );
   const [bubbleSortRunning, setBubbleSortRunning] = useState(false);
+  const [mergeSortRunning, setMergeSortRunning] = useState(false);
   const [quickSortRunning, setQuickSortRunning] = useState(false);
   const [sorted, setSorted] = useState(true);
 
@@ -27,16 +29,29 @@ export default function Home() {
       setBubbleSortRunning
     );
   };
+
   const startQuickSort = async () => {
     try {
       setQuickSortRunning(true);
-      await quicksort(numberOfSortingLines, setNumberOfSortingLines);
+      await quickSort(numberOfSortingLines, setNumberOfSortingLines);
     } catch (error) {
       console.error("Error during sorting:", error);
     } finally {
       setQuickSortRunning(false);
     }
   };
+
+  const startMergeSort = async () => {
+    try {
+      setMergeSortRunning(true);
+      await mergeSort(numberOfSortingLines, setNumberOfSortingLines);
+    } catch (error) {
+      console.error("Error during sorting:", error);
+    } finally {
+      setMergeSortRunning(false);
+    }
+  };
+
   return (
     <>
       <nav className="p-2 flex justify-around cursor-pointer">
@@ -67,6 +82,13 @@ export default function Home() {
           disabled={quickSortRunning}
         >
           {quickSortRunning ? "Sorting..." : "Quick Sort"}
+        </button>
+        <button
+          className="text-sm font-semibold"
+          onClick={sorted ? undefined : startMergeSort}
+          disabled={mergeSortRunning}
+        >
+          {mergeSortRunning ? "Sorting..." : "Merge Sort"}
         </button>
       </nav>
       <div className="flex justify-center items-center">
