@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { bubbleSort } from "../algorithms/bubblesort";
 import { shuffleLines } from "@/functions/shuffleLines";
 import { quickSort } from "@/algorithms/quicksort";
-import { mergeSort } from "@/algorithms/mergesort"
+// import { mergeSort } from "@/algorithms/mergesort"
 import { arraysAreEqual } from "@/functions/arraysAreEqual";
 
 export default function Home() {
@@ -44,7 +44,7 @@ export default function Home() {
   const startMergeSort = async () => {
     try {
       setMergeSortRunning(true);
-      await mergeSort(numberOfSortingLines, setNumberOfSortingLines);
+      // await mergeSort(numberOfSortingLines, setNumberOfSortingLines);
     } catch (error) {
       console.error("Error during sorting:", error);
     } finally {
